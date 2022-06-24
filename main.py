@@ -73,10 +73,37 @@ async def delete_channel(ctx, channel_name):
     else:
         await ctx.send(f'No channel named, "{channel_name}", was found')
 
+# perform calculation
+@bot.command(name = 'add')
+async def add(ctx, a: float, b: float):
+    await ctx.send(a + b)
+@bot.command(name = 'sub')
+async def sub(ctx, a: float, b: float):
+    await ctx.send(a-b)
+@bot.command(name = 'mul')
+async def mul(ctx, a: float, b: float):
+    await ctx.send(a*b)
+@bot.command(name = 'div')
+async def div(ctx, a: float, b: float):
+    if b==0:
+        await ctx.send('Division by 0 is not defined')
+    else:
+        await ctx.send(a/b)
+@bot.command(name = 'rem')
+async def rem(ctx, a: float, b: float):
+    await ctx.send(a%b)
+@bot.command(name = 'pow')
+async def pow(ctx, a: float, b: float):
+    await ctx.send(a**b)
+
+@bot.command()
+async def joined(ctx, *, member: discord.Member):
+    await ctx.send('{0} joined on {0.joined_at}'.format(member))
+
+
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CheckFailure):
         await ctx.send('You do not have the correct role for this command.')
+
 bot.run(TOKEN)
-
-
